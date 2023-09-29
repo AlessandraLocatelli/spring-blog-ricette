@@ -25,6 +25,13 @@
                             th:classappend="${#strings.equals(area,'Home') ? 'active' : ''}"
                     >Home</a>
                 </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            th:href="@{/categories}"
+                            th:classappend="${#strings.equals(area,'Categories') ? 'active' : ''}"
+                    >Categories</a>
+                </li>
             </ul>
         </div>
     </div>

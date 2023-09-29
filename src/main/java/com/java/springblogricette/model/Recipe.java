@@ -2,10 +2,7 @@ package com.java.springblogricette.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -33,12 +30,17 @@ public class Recipe {
 
     @Min(value = 1, message = "Insert a number between 1-20.")
     @Max(value = 20, message = "Insert a number between 1-20.")
-    private Integer servings;
+    private int servings;
 
     @NotBlank(message = "I don't know how to prepare it. Give me some directions, please.")
     @Size(max = 1000)
     @Column(columnDefinition = "tinytext", length = 1000)
     private String text;
+
+
+    @ManyToOne
+    @NotNull
+    private Category category;
 
 
     public Integer getId() {
@@ -89,12 +91,20 @@ public class Recipe {
         this.text = text;
     }
 
-    public Integer getServings() {
+    public int getServings() {
         return servings;
     }
 
-    public void setServings(Integer servings) {
+    public void setServings(int servings) {
         this.servings = servings;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
 
