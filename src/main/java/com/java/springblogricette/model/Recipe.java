@@ -30,8 +30,9 @@ public class Recipe {
     @Size(max = 50)
     private String cookingTime;
 
-    @Min(1)
-    @Max(500)
+
+    @Min(value = 1, message = "Insert a number between 1-20.")
+    @Max(value = 20, message = "Insert a number between 1-20.")
     private Integer servings;
 
     @NotBlank(message = "I don't know how to prepare it. Give me some directions, please.")
@@ -80,20 +81,20 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
-    public int getServings() {
-        return servings;
-    }
-
-    public void setServings(int servings) {
-        this.servings = servings;
-    }
-
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Integer getServings() {
+        return servings;
+    }
+
+    public void setServings(Integer servings) {
+        this.servings = servings;
     }
 }
 

@@ -6,14 +6,52 @@
 <nav th:replace="fragments/navbar :: navbar(area='Home')"></nav>
 
 
-<div class="container d-flex flex-nowrap align-items-center justify-content-evenly m-5">
-    <div th:if="${recipe.size() > 0}" th:each="r : ${recipe}">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body text-center">
-                <img width="100%" height="300" th:src="${r.image}" alt="recipe image">
-                <h5 th:text="${r.name}" class="card-title py-2"></h5>
-                <p th:text="${r.text}" class="card-text"></p>
-                <a th:href="@{/recipes/show/{id}(id=${r.id})}" class="btn btn-success my-2">Details</a>
+<div class="container m-5">
+
+
+    <div class="row bg-success mt-3 text-center mb-3 pb-2">
+        <h1 class="text-light mb-1">MY RECIPES</h1>
+        <form
+                th:action="@{/recipes}"
+                method="get"
+        >
+
+            <div class="input-group">
+                <input type="search" class="form-control" placeholder="insert name"
+                       name="keyword" th:value="${keyword}">
+                <button class="btn btn-outline-light">Search</button>
+            </div>
+
+
+        </form>
+
+        <a class="text-light fw-bold text-decoration-underline pt-2" th:href="@{/recipes/create}">CREATE NEW RECIPE</a>
+
+    </div>
+
+
+    <div class="row d-flex flex-nowrap align-items-center justify-content-evenly ">
+        <div class="col-4">
+            <div th:if="${recipe.size() > 0}" th:each="r : ${recipe}">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body text-center">
+                        <img width="100%" height="300" th:src="${r.image}" alt="recipe image">
+                        <h5 th:text="${r.name}" class="card-title py-2"></h5>
+                        <p th:text="${r.text}" class="card-text"></p>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a th:href="@{/recipes/show/{id}(id=${r.id})}" class="btn btn-success me-1">
+                                <i class="fa-solid fa-question" style="color: #ffffff;"></i> </a>
+                            <a th:href="@{/recipes/edit/{id}(id=${r.id})}" class="btn btn-success"><i
+                                    class="fa-solid fa-pencil" style="color: #ffffff;"></i></a>
+                            <form th:action="@{/recipes/delete/{id}(id=${r.id})}"
+                                  method="post">
+                                <button class="btn btn-success ms-1" type="submit"><i class="fa-solid fa-trash"
+                                                                                      style="color: #ffffff;"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
