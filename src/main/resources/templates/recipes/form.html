@@ -93,6 +93,12 @@
             </div>
         </div>
 
+        <div class="form-check" th:each="c : ${categoryList}">
+            <input class="form-check-input" type="radio" th:value="${c.id}"
+                   th:id="|category_${c.id}|" th:field="*{category}">
+            <label class="form-check-label" th:for="|category_${c.id}|" th:text="${c.name}"></label>
+        </div>
+
 
         <div class="m-2">
             <button type="submit" class="btn btn-success">Save</button>

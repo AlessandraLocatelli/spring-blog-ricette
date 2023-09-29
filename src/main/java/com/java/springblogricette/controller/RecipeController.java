@@ -1,6 +1,7 @@
 package com.java.springblogricette.controller;
 
 import com.java.springblogricette.model.Recipe;
+import com.java.springblogricette.repository.CategoryRepository;
 import com.java.springblogricette.repository.RecipeRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class RecipeController {
 
     @Autowired
     RecipeRepository recipeRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     @GetMapping
     public String index(Model model, @RequestParam("keyword") Optional<String> searchKeyword) {
@@ -54,6 +59,8 @@ public class RecipeController {
 
     @GetMapping("/create")
     public String create(Model model) {
+
+        model.addAttribute("categoryList", categoryRepository.findAll());
         model.addAttribute("recipe", new Recipe());
 
         return "recipes/form";
@@ -63,6 +70,8 @@ public class RecipeController {
     public String doCreate(@Valid @ModelAttribute("recipe") Recipe formRecipe,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "recipes/form";
 
         }
@@ -78,6 +87,7 @@ public class RecipeController {
         Optional<Recipe> recipeObj = recipeRepository.findById(id);
 
         if (recipeObj.isPresent()) {
+            model.addAttribute("categoryList", categoryRepository.findAll());
             model.addAttribute("recipe", recipeObj.get());
             return "recipes/form";
         } else {
@@ -92,6 +102,8 @@ public class RecipeController {
     public String doEdit(@Valid @ModelAttribute("recipe") Recipe formRecipe, @PathVariable("id")
     Integer id, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "recipes/form";
 
         }
