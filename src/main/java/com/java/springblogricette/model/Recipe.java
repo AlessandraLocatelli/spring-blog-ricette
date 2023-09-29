@@ -1,4 +1,4 @@
-package com.java.model;
+package com.java.springblogricette.model;
 
 
 import jakarta.persistence.*;
@@ -15,26 +15,26 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank(message = "insert the name of your recipe.")
+    @NotBlank(message = "Insert the name of your recipe.")
     @Size(max = 255)
     private String name;
-    @NotBlank(message = "insert the list of the ingredients.")
+    @NotBlank(message = "Insert the list of the ingredients.")
     @Size(max = 600)
     @Column(columnDefinition = "tinytext", length = 600)
     private String ingredients;
     @URL(message = "Insert an url.")
-    @NotBlank(message = "insert url image")
+    @NotBlank(message = "Insert web url image.")
     private String image;
 
-    @NotBlank(message = "Insert cooking time. ex. 1 hour and 20 minutes.")
+    @NotBlank(message = "Insert cooking time. ex. 1hr 20min.")
     @Size(max = 50)
     private String cookingTime;
 
     @Min(1)
     @Max(500)
-    private int servings;
+    private Integer servings;
 
-    @NotBlank(message = "I don't know how to prepare it. Please, give me some directions.")
+    @NotBlank(message = "I don't know how to prepare it. Give me some directions, please.")
     @Size(max = 1000)
     @Column(columnDefinition = "tinytext", length = 1000)
     private String text;
